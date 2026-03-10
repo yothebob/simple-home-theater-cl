@@ -94,16 +94,21 @@
       (progn (sleep 1)
 	(countdown (- time-left 1)))))
 
-;; "list playlist" : {"-lpl" : "List playlist","listpl" : ""},
-;; "add playlist" : {"-apl" : " add playlist ex:{indexes} -apl name=?"},
-;; "append playlist" : {"-atpl" : " add to a playlist ex:{indexes} -atpl name=?"},
-;; "search"    : {"search" :"search for multiple names", "-s": ""},
-;; "autoplay"  : {"-a" : "autoplay category in index order"},
+(defun append-playlist (pl &rest idxs)
+  (setq (getf pl :plylst) (merge 'list (getf pl :plylst) idxs)))
+
 ;; "replay"    : {"-r": "replay given indexes/ playlist"},
 ;; "shuffle"   : {"-sp" : "shuffle playlist"},
 ;; "cross_content"   : {"-crossc" : "grab a piece of content from another category ex:{-crossc id=(content_id)}"},
 ;; "help"      : {"-h" : "", "help" : ""},
 ;; "exit"      : {"exit" : ""}
+
+(defun search (cat &rest sterms)
+  (select #'(lambda (x) (str:s-member sterms x :test #'str:containsp)) (get-category-contents)))
+
+(defun autoplay (&optional (cd-time 3))
+  (dolist (c (get-category-contents))
+    (play c :cd-time cd-time)))
 
 (defun play (cmd-str &optional (cd-time 3)) ;; how to play: countdown, play, add to history
   (progn (countdown cd-time)
@@ -111,7 +116,7 @@
 (defun ls (data-list &optional start stop)
   (format t "~{~a~% ~}" data-list)) ;; (ls (get-category-contents))
 ;; (defun detail (item) (format t "TODO"))
-;; (defun search (&rest s-terms) ('TODO))
+
 (defun test--cmd (&rest args)
   (let (fncall)
     (loop for arg in args do
