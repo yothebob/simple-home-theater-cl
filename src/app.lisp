@@ -8,7 +8,7 @@
 (defun login-user (&rest args)
   (let ((entered-name (prompt-read "Username"))
 	(entered-pass (prompt-read "Password")))
-    (setq *user* (select (where :name entered-name :password entered-pass) (dbm :user))))
+    (setq *user* (first (select (where :name entered-name :password entered-pass) (dbm :user)))))
   (traverse-to 'cat-page))
 
 (defun pick-category ()
@@ -16,15 +16,15 @@
 	cat-input)
     (progn
       (ls user-categories)
-      (setq cat-input (read-line *query-io*))
-      (setq *active-cat* (select (where :id (int cat-input))))
+      (setf cat-input (prompt-read "ID"))
+      (setf *active-cat* (first (select (where :id (parse-integer cat-input)) (dbm :category))))
       (traverse-to 'content-page))))
 
 (defun add-category ()
   (let* ((new-category (create-category *user*))
-	 (category-contents (getf new-category :path)))
-    (loop for file in (directory category-contents)
-	  do (create-content file new-category))))
+    (category-contents (getf new-category :path)))
+    (loop for file in (uiop:directory-files category-contents)
+	  do (create-content (merge-pathnames file (concat category-contents "/")) new-category))))
 
 (defun add-playlist (content-ids-str)
   (let* ((new-pl (create-playlist (mapcar #'parse-integer (uiop:split-string content-ids-str)))))))
@@ -42,10 +42,6 @@
 (defun append-playlist (pl &rest idxs)
   (setf (getf pl :plylst) (merge 'list (getf pl :plylst) idxs #'<)))
 
-;; "cross_content"   : {"-crossc" : "grab a piece of content from another category ex:{-crossc id=(content_id)}"},
-;; "help"      : {"-h" : "", "help" : ""},
-;; "exit"      : {"exit" : ""}
-
 (defun search-content (cat &rest sterms)
   (select #'(lambda (x) (str:s-member sterms x :test #'str:containsp)) (get-category-contents)))
 
@@ -53,11 +49,14 @@
   (dolist (c (get-category-contents))
     (play c :cd-time cd-time)))
 
-(defun play (cmd-str &optional (cd-time 3)) ;; how to play: countdown, play, add to history
-  (progn (countdown cd-time)
-  (uiop:launch-program (format nil "~s ~s" *player* cmd-str))))
+(defun play (id-str &optional (cd-time 3)) ;; how to play: countdown, play, add to history
+  (let ((content-fpath (first (select (where :id id-str) (dbm :content)))))
+    (progn (countdown cd-time)
+	   (uiop:run-program (format nil "~s ~s" *player* cmd-str)))))
+
 (defun ls (data-list &optional start stop)
   (format *query-io* "~{~a~% ~}" data-list)) ;; (ls (get-category-contents))
+
 (defun replay (&optional (cd-time 3) &rest contents)
   (loop (dolist (c contents)
 	  (play c cd-time))))
@@ -66,5 +65,3 @@
         do (rotatef (elt sequence (random i))
                     (elt sequence (1- i))))
   sequence)
-;; (defun detail (item) (format t "TODO"))
-
