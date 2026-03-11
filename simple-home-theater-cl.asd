@@ -6,6 +6,10 @@
   :license  "Specify license here"
   :version "0.0.1"
   :serial t
-  :depends-on ("tuition")
-  :components ((:file "package")
-               (:file "simple-home-theater-cl")))
+  :depends-on ("tuition" "str")
+  :components ((:module "src"
+		:components
+		((:file "package")
+		 (:file "app")
+		 (:file "cli")
+		 (:file "db")))))

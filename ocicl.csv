@@ -1,6 +1,7 @@
 bordeaux-threads, ghcr.io/ocicl/bordeaux-threads@sha256:bbb32afe3987e102149cc019f4f7366a05f7a37d1503f5f86a27745e671c320a, bordeaux-threads-0.9.4/bordeaux-threads.asd
 cl-base64, ghcr.io/ocicl/cl-base64@sha256:702412dbc1ed825e275fb23e22c29527eb786bf644e47c7621bf0dbb34e17c7e, cl-base64-20240503-80496b7/cl-base64.asd
 cl-base64-tests, ghcr.io/ocicl/cl-base64@sha256:702412dbc1ed825e275fb23e22c29527eb786bf644e47c7621bf0dbb34e17c7e, cl-base64-20240503-80496b7/cl-base64-tests.asd
+cl-change-case, ghcr.io/ocicl/cl-change-case@sha256:4c14d77c6b55bb76d50fe37625114b0c1b2590c4c7f8a96bf495e64b746e900d, cl-change-case-1.0/cl-change-case.asd
 closer-mop, ghcr.io/ocicl/closer-mop@sha256:0cee307fbc9538461f4ecfa329c545ad220ba43cf13faf8993e156a0bb27b699, closer-mop-20260203-211c5ec/closer-mop.asd
 global-vars, ghcr.io/ocicl/global-vars@sha256:d197e871c9c9abc4bf31b1186f5fd28f0ca848ebe2e9dddf2d82ecee01dbdc65, global-vars-20240503-c749f32/global-vars.asd
 global-vars-test, ghcr.io/ocicl/global-vars@sha256:d197e871c9c9abc4bf31b1186f5fd28f0ca848ebe2e9dddf2d82ecee01dbdc65, global-vars-20240503-c749f32/global-vars-test.asd
@@ -13,6 +14,8 @@ parse-declarations-1.0, ghcr.io/ocicl/parse-declarations-1.0@sha256:9305fa962420
 parse-number, ghcr.io/ocicl/parse-number@sha256:11f3f9f512871e1f96cea6b8260aa3610e34e8fd7272bbcdb210fd3c5dd8025c, parse-number-20240503-cb9e487/parse-number.asd
 serapeum, ghcr.io/ocicl/serapeum@sha256:31bccc85079addd0cb5583b484b121e54fab8cb156e8919f5e7ff2ae9b1de076, serapeum-20260213-71f35c9/serapeum.asd
 split-sequence, ghcr.io/ocicl/split-sequence@sha256:3a37662eedd99c42995587b9d443c4631f25c4c523091bcca31a27b880585b8e, split-sequence-2.0.1/split-sequence.asd
+str, ghcr.io/ocicl/str@sha256:685078f7554071268bca9e933392904940d6751077718a4aafaf3d0424003f26, cl-str-20250905-69ef8b4/str.asd
+str.test, ghcr.io/ocicl/str@sha256:685078f7554071268bca9e933392904940d6751077718a4aafaf3d0424003f26, cl-str-20250905-69ef8b4/str.test.asd
 string-case, ghcr.io/ocicl/string-case@sha256:9db2d4160b76ce1ed9f754d12f679c665593a9a436177d36380a1a8a176ec16a, string-case-20240503-718c761/string-case.asd
 trivia, ghcr.io/ocicl/trivia@sha256:51db74757bc31ceaf3a643914a8ffa87825799097dea4912650e6ac62bed5209, trivia-20240904-4383dd8/trivia.asd
 trivia.balland2006, ghcr.io/ocicl/trivia@sha256:51db74757bc31ceaf3a643914a8ffa87825799097dea4912650e6ac62bed5209, trivia-20240904-4383dd8/trivia.balland2006.asd
